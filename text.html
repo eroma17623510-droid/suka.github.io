@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Илья — короткое портфолио</title>
+<style>
+  :root{--bg:#071010;--green:#22c55e;--muted:#cfece0}
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:var(--muted);display:flex;align-items:center;justify-content:center}
+  .wrap{width:100%;max-width:640px;padding:24px;box-sizing:border-box;text-align:center;position:relative;z-index:2}
+
+  /* меню */
+  nav{display:flex;gap:12px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+  nav a{color:var(--muted);text-decoration:none;padding:8px 14px;border-radius:999px;font-size:14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);transition:transform .12s ease, background .12s ease}
+  nav a:active,nav a:focus{transform:translateY(1px);outline:none}
+  nav a:hover{background:rgba(255,255,255,0.05)}
+
+  /* герой и аватар */
+  .hero{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .avatar{width:110px;height:110px;border-radius:50%;display:block;background:linear-gradient(135deg,var(--green) 0%,#16a34a 60%);box-shadow:0 8px 30px rgba(34,197,94,0.18);position:relative;overflow:hidden}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+  .avatar::before,.avatar::after{content:"";position:absolute;inset:-14px;border-radius:50%;background:radial-gradient(closest-side,rgba(34,197,94,0.18),rgba(34,197,94,0.06) 40%,transparent 60%);filter:blur(8px);opacity:0.9;animation:glow 4s ease-in-out infinite;pointer-events:none}
+  .avatar::after{animation-duration:5.6s;transform:scale(1.18);opacity:0.6}
+  @keyframes glow{0%{transform:scale(1);opacity:0.7}50%{transform:scale(1.06);opacity:1}100%{transform:scale(1);opacity:0.7}}
+
+  h1{margin:0;font-size:24px;color:#ecfff6}
+  .subtitle{color:var(--muted);font-size:13px;margin-top:6px}
+  .links-row{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+  .links-row a{font-size:13px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);color:var(--muted);text-decoration:none;border:1px solid rgba(255,255,255,0.02)}
+  footer.note{margin-top:18px;font-size:13px;color:var(--muted)}
+
+  /* снежинки */
+  .snow-wrap{position:fixed;left:0;right:0;bottom:0;top:0;pointer-events:none;overflow:hidden;z-index:1}
+  .flake{position:absolute;top:-10vh;border-radius:50%;background:rgba(255,255,255,0.85);filter:blur(0.4px);box-shadow:0 0 6px rgba(255,255,255,0.12);transform:translate3d(0,0,0);will-change:transform,opacity;animation-name:fall,sway,twinkle;animation-timing-function:linear;animation-iteration-count:infinite}
+  @keyframes fall{0%{transform:translate3d(0,-5vh,0) rotate(0deg)}100%{transform:translate3d(var(--x,0),110vh,0) rotate(360deg)}}
+  @keyframes sway{0%{filter:blur(0.4px)}50%{filter:blur(1.2px)}100%{filter:blur(0.4px)}}
+  @keyframes twinkle{0%{opacity:0.9}50%{opacity:0.45}100%{opacity:0.9}}
+
+  /* разные флаки через nth-child */
+  .flake:nth-child(1){left:4%;width:6px;height:6px;animation-duration:10s;animation-delay:0s;--x:-10vw}
+  .flake:nth-child(2){left:11%;width:8px;height:8px;animation-duration:14s;animation-delay:1s;--x:6vw}
+  .flake:nth-child(3){left:18%;width:5px;height:5px;animation-duration:12s;animation-delay:-2s;--x:-4vw}
+  .flake:nth-child(4){left:24%;width:9px;height:9px;animation-duration:18s;animation-delay:0.5s;--x:8vw}
+  .flake:nth-child(5){left:31%;width:7px;height:7px;animation-duration:11s;animation-delay:-1s;--x:-6vw}
+  .flake:nth-child(6){left:37%;width:6px;height:6px;animation-duration:16s;animation-delay:2s;--x:5vw}
+  .flake:nth-child(7){left:43%;width:10px;height:10px;animation-duration:20s;animation-delay:0s;--x:-8vw}
+  .flake:nth-child(8){left:49%;width:6px;height:6px;animation-duration:9s;animation-delay:1.5s;--x:7vw}
+  .flake:nth-child(9){left:55%;width:5px;height:5px;animation-duration:13s;animation-delay:-0.5s;--x:-5vw}
+  .flake:nth-child(10){left:62%;width:8px;height:8px;animation-duration:15s;animation-delay:0.2s;--x:6vw}
+  .flake:nth-child(11){left:68%;width:7px;height:7px;animation-duration:17s;animation-delay:-1.2s;--x:-7vw}
+  .flake:nth-child(12){left:74%;width:9px;height:9px;animation-duration:22s;animation-delay:0.6s;--x:9vw}
+  .flake:nth-child(13){left:79%;width:6px;height:6px;animation-duration:12s;animation-delay:-0.3s;--x:-4vw}
+  .flake:nth-child(14){left:85%;width:8px;height:8px;animation-duration:14s;animation-delay:0.9s;--x:5vw}
+  .flake:nth-child(15){left:91%;width:5px;height:5px;animation-duration:10s;animation-delay:-0.7s;--x:-6vw}
+  .flake:nth-child(16){left:6%;width:7px;height:7px;animation-duration:19s;animation-delay:1.1s;--x:9vw}
+  .flake:nth-child(17){left:27%;width:6px;height:6px;animation-duration:13s;animation-delay:-0.9s;--x:-3vw}
+  .flake:nth-child(18){left:52%;width:10px;height:10px;animation-duration:21s;animation-delay:0.4s;--x:10vw}
+  .flake:nth-child(19){left:33%;width:5px;height:5px;animation-duration:11s;animation-delay:-0.2s;--x:-5vw}
+  .flake:nth-child(20){left:88%;width:7px;height:7px;animation-duration:16s;animation-delay:0.8s;--x:6vw}
+
+  @media (max-width:420px){.avatar{width:88px;height:88px}h1{font-size:20px}nav{gap:8px}}
+  /* панель управления звуком */
+  .audio-controls{position:fixed;left:14px;bottom:14px;background:rgba(0,0,0,0.4);padding:8px;border-radius:10px;backdrop-filter:blur(6px);z-index:3;border:1px solid rgba(255,255,255,0.03);display:flex;gap:8px;align-items:center}
+  .audio-controls button{background:transparent;border:0;color:var(--muted);font-size:14px;padding:6px;cursor:pointer}
+  .audio-controls label{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a href="#about">Обо мне</a>
+      <a href="#work">Работа</a>
+      <a href="info.html">Где написано</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+
+    <section class="hero" aria-label="Главная">
+      <a class="avatar" href="info.html" title="Открыть страницу с информацией">
+        <img src="https://www.osh.by/wp-content/uploads/2023/12/1041436899_0_206_2905_1840_1920x0_80_0_0_c7022893b761781d76fe592010d14bd2.jpg" alt="Аватар — котик">
+      </a>
+
+      <h1>Илья</h1>
+      <div class="subtitle">16 лет · ученик · делает простые сайты и проекты</div>
+
+      <div class="links-row">
+        <a href="mailto:ilya.example@mail.ru">Написать</a>
+        <a href="info.html">Подробнее</a>
+      </div>
+    </section>
+
+    <footer class="note" id="about">Внизу — анимированные снежинки, весь текст виден поверх них.</footer>
+
+    <div id="work" style="margin-top:22px;color:var(--muted)">Работа: вёрстка лендингов, правки, оптимизация изображений.</div>
+    <div id="contacts" style="margin-top:12px;color:var(--muted)">Контакты: ilya.example@mail.ru · Telegram @ilya_dev</div>
+  </div>
+
+  <!-- Аудиоплеер и контролы -->
+  <div class="audio-controls" id="audioControls" aria-hidden="false">
+    <button id="playBtn" aria-pressed="false">Пауза</button>
+    <label for="volRange">Громкость</label>
+    <input id="volRange" type="range" min="0" max="1" step="0.01" value="0.7" />
+  </div>
+
+  <!-- Использует ссылку, которую ты дал -->
+  <audio id="bgAudio" src="https://sefon.pro/mp3/474578-sektor-gaza-bomzh/" preload="auto" loop></audio>
+
+  <div class="snow-wrap" aria-hidden="true">
+    <span class="flake"></span><span class="flake"></span><span class="flake"></span><span class="flake"></span>
+    <span class="flake"></span><span class="flake"></span><span class="flake"></span><span class="flake"></span>
+    <span class="flake"></span><span class="flake"></span><span class="flake"></span><span class="flake"></span>
+    <span class="flake"></span><span class="flake"></span><span class="flake"></span><span class="flake"></span>
+    <span class="flake"></span><span class="flake"></span><span class="flake"></span><span class="flake"></span>
+  </div>
+
+<script>
+/*
+  Полный контроллер звука:
+  - пробует autoplay и обрабатывает блокировку;
+  - кнопка play/pause и слайдер громкости;
+  - сохраняет выбор пользователя в localStorage;
+  - ставит loop;
+  - при скрытии вкладки приостанавливает и восстанавливает при возвращении.
+*/
+
+(function(){
+  const AUDIO_KEY = 'portfolio_bg_audio_playing';
+  const VOL_KEY = 'portfolio_bg_audio_volume';
+  const audio = document.getElementById('bgAudio');
+  const btn = document.getElementById('playBtn');
+  const vol = document.getElementById('volRange');
+
+  if (!audio || !btn || !vol) return;
+
+  audio.loop = true;
+
+  function setBtnPlaying(isPlaying){
+    btn.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+    btn.textContent = isPlaying ? 'Пауза' : 'Включить звук';
+  }
+
+  function saveState(isPlaying){
+    try { localStorage.setItem(AUDIO_KEY, isPlaying ? '1' : '0'); } catch(e){}
+  }
+
+  function loadState(){
+    try { return localStorage.getItem(AUDIO_KEY) === '1'; } catch(e){ return null; }
+  }
+
+  function saveVol(v){
+    try { localStorage.setItem(VOL_KEY, String(v)); } catch(e){}
+  }
+
+  function loadVol(){
+    try { const v = localStorage.getItem(VOL_KEY); return v !== null ? parseFloat(v) : null; } catch(e){ return null; }
+  }
+
+  // Инициализация громкости из сохранения или по умолчанию
+  const savedVol = loadVol();
+  if (savedVol !== null && !isNaN(savedVol)) {
+    audio.volume = savedVol;
+    vol.value = savedVol;
+  } else {
+    audio.volume = parseFloat(vol.value);
+  }
+
+  async function tryPlay(){
+    try {
+      await audio.play();
+      setBtnPlaying(true);
+      saveState(true);
+      return true;
+    } catch (err) {
+      setBtnPlaying(false);
+      return false;
+    }
+  }
+
+  // Попытка автозапуска, если пользователь ранее включал звук
+  const saved = loadState();
+  if (saved === true) {
+    tryPlay();
+  } else {
+    audio.play().then(()=> {
+      setBtnPlaying(true);
+      saveState(true);
+    }).catch(()=> {
+      setBtnPlaying(false);
+    });
+  }
+
+  // Кнопка play/pause
+  btn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (audio.paused) {
+      const ok = await tryPlay();
+      if (!ok) waitForUserGestureAndPlay();
+    } else {
+      audio.pause();
+      setBtnPlaying(false);
+      saveState(false);
+    }
+  });
+
+  // Слайдер громкости
+  vol.addEventListener('input', (e) => {
+    const v = parseFloat(e.target.value);
+    audio.volume = v;
+    saveVol(v);
+  });
+
+  // Если автоплей был заблокирован — ждать первого взаимодействия
+  let gestureListenerAttached = false;
+  function waitForUserGestureAndPlay(){
+    if (gestureListenerAttached) return;
+    gestureListenerAttached = true;
+
+    const oncePlay = async () => {
+      try { await audio.play(); setBtnPlaying(true); saveState(true); } catch(e){}
+      removeGestureListeners();
+    };
+
+    function onAnyInteraction(){ oncePlay(); }
+
+    function removeGestureListeners(){
+      gestureListenerAttached = false;
+      window.removeEventListener('click', onAnyInteraction);
+      window.removeEventListener('touchstart', onAnyInteraction);
+      window.removeEventListener('keydown', onAnyInteraction);
+    }
+
+    window.addEventListener('click', onAnyInteraction, {passive:true});
+    window.addEventListener('touchstart', onAnyInteraction, {passive:true});
+    window.addEventListener('keydown', onAnyInteraction, {passive:true});
+  }
+
+  // Пауза при скрытии вкладки
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (!audio.paused) {
+        audio.pause();
+        btn.dataset._wasPlaying = '1';
+        setBtnPlaying(false);
+      }
+    } else {
+      if (audio.paused && btn.dataset._wasPlaying === '1') {
+        audio.play().then(()=> {
+          setBtnPlaying(true);
+          saveState(true);
+          delete btn.dataset._wasPlaying;
+        }).catch(()=> {
+          setBtnPlaying(false);
+        });
+      }
+    }
+  });
+
+  // Обработка ошибок воспроизведения
+  audio.addEventListener('error', (e) => {
+    setBtnPlaying(false);
+    try { console.warn('Audio error', e); } catch(e){}
+  });
+
+})();
+</script>
+</body>
+</html>
